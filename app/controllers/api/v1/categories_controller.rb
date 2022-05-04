@@ -1,5 +1,5 @@
 class Api::V1::CategoriesController < ApplicationController
-    before_action :authenticate_user!
+  before_action :authenticate_user!
 
   def index
     all_categories = Category.all
