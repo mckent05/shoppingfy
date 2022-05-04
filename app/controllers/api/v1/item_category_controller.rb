@@ -1,7 +1,7 @@
 class Api::V1::ItemCategoryController < ApplicationController
   def create
     exisiting_category = Category.find_by(name: new_item_category[:category])
-    new_item = Item.create(new_item_category)
+    new_item = current_user.items.create(new_item_category)
     if exisiting_category.exists?
       new_item_category = exisiting_category.item_categories.create(item: new_item)
     else
