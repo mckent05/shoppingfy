@@ -17,7 +17,7 @@ class Api::V1::ItemsController < ApplicationController
   def show
     item = Item.find(params[:id])
     render json: {
-      data: item.as_json(only: %i[name description image measurement_unit quantity]),
+      data: item.as_json(only: %i[name description image measurement_unit quantity user_id]),
       status: 200
     }
   end
