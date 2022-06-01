@@ -22,7 +22,7 @@ class Api::V1::ItemCategoryController < ApplicationController
     if existing_item_category
       render json: {
         message: 'Item already exists for this category',
-        status: 200
+        status: 409
       }
     else
       new_item = current_user.items.create(name: new_item_category[:item_name], description: new_item_category[:description], image: new_item_category[:image], quantity: new_item_category[:quantity])
@@ -40,7 +40,7 @@ class Api::V1::ItemCategoryController < ApplicationController
     if item.save
       render json: {
         message: 'Item created succesfully',
-        status: 200
+        status: 201
       }
     else
       render json: {
