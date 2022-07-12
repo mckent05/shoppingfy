@@ -12,7 +12,7 @@ class Api::V1::ItemCategoryController < ApplicationController
     end
     render json: {
       data: category_items,
-      status: 200
+      status: 200,
     }
   end
 
