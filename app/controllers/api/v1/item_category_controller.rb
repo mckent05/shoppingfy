@@ -6,7 +6,7 @@ class Api::V1::ItemCategoryController < ApplicationController
     all_categories.each do |cat|
       all_items = []
       cat.item_categories.each do |c|
-        all_items << c.item.as_json(only: %i[name user_id id description measurement_unit quantity])
+        all_items << c.item.as_json(only: %i[name id measurement_unit quantity])
       end
       category_items << { category: cat.name, items: all_items }
     end
@@ -20,6 +20,7 @@ class Api::V1::ItemCategoryController < ApplicationController
     existing_category = Category.find_by(name: new_item_category[:category_name])
     existing_item = Item.find_by(name: new_item_category[:item_name])
     existing_item_category = ItemCategory.find_by(item: existing_item, category: existing_category)
+    item_category = ''
 
     if existing_item_category
       render json: {
