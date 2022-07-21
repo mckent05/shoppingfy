@@ -3,9 +3,9 @@ class Api::V1::CategoriesController < ApplicationController
 
   def index
     all_categories = Category.all
-    all_categories = all_categories.as_json(only: %i[name])
+    categories = all_categories.as_json(only: %i[name])
     render json: {
-      data: all_categories,
+      data: categories,
       status: 200
     }
   end

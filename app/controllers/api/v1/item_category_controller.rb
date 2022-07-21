@@ -12,7 +12,7 @@ class Api::V1::ItemCategoryController < ApplicationController
     end
     render json: {
       data: category_items,
-      status: 200,
+      status: 200
     }
   end
 
@@ -57,6 +57,7 @@ class Api::V1::ItemCategoryController < ApplicationController
   end
 
   private
+
   def new_item_category
     params.require(:new_item).permit(:category_name, :item_name, :image, :description, :measurement_unit, :quantity)
   end
