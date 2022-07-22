@@ -1,6 +1,5 @@
 class Api::V1::CartsController < ApplicationController
   before_action :authenticate_user!
-  
 
   def index
     cart = current_user.carts

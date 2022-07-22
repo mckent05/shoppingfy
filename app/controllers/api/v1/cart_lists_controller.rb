@@ -2,24 +2,25 @@ class Api::V1::CartListsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    user_cart = current_user.carts
-    tope = { category: {}, items: {} }
+    user_cart = current_user.carts.includes([:cart_lists])
+    category_items_count = { category: {}, items: {} }
     user_cart.each do |cart|
-      Item.all.each do |item|
-        item.get_items_count(tope, cart.id)
-      end
-      Category.all.each do |category|
-        category.get_category_count(tope, cart.id)
-      end
+      group_items = cart.cart_lists.group(:item).count
+      group_category = cart.cart_lists.group(:category).count
+      item = category_items_count[:items]
+      category = category_items_count[:category]
+
+      group_keys(group_items, item)
+      group_keys(group_category, category)
     end
     render json: {
-      data: tope,
+      data: category_items_count,
       status: 200
     }
   end
 
   def create
-    cart = curret_user.carts.find_by(active: true)
+    cart = current_user.carts.find_by(active: true)
     new_cart_list = ''
     if cart
       new_cart_list = cart.cart_lists.create(new_list_params)
@@ -41,6 +42,16 @@ class Api::V1::CartListsController < ApplicationController
         message: 'Cart created unsuccesfully',
         status: 400
       }
+    end
+  end
+
+  def group_keys(object, item)
+    object.collect do |key, value|
+        if item.key?(key.name)
+            item[key.name] += value
+        else
+            item[key.name] = value
+        end
     end
   end
 

@@ -18,17 +18,23 @@ class Api::V1::ItemCategoryController < ApplicationController
 
   def create
     existing_category = Category.find_by(name: params[:category_name])
-    existing_item = Item.find_by(new_item_params)
-    item_category = ''
+    existing_item = Item.find_by(name: new_item_params[:name])
     if existing_item
-      existing_item_category = ItemCategory.find_by(item_id: existing_item.id, category_id: existing_category.id)
-      if existing_item_category
+      if existing_category
+        existing_item_category = ItemCategory.find_by(item_id: existing_item.id, category_id: existing_category.id)
+        if existing_item_category
           render json: {
             message: 'Item already exists for this category',
             status: 409
           }
-      # else
-      #   item_category = ItemCategory.create(item: existing_item, category: existing_category)
+        else
+          item_category = ItemCategory.create(item_id: existing_item.id, category_id: existing_category.id)
+          display_message(item_category)
+        end
+      else
+        new_category = current_user.categories.create(params[:category_name])
+        item_category = new_category.item_categories.create(item: existing_item)
+        display_message(item_category)
       end
     else
       new_item = current_user.items.create(new_item_params)
@@ -40,7 +46,6 @@ class Api::V1::ItemCategoryController < ApplicationController
       end
       display_message(item_category)
     end
-    
   end
 
   def display_message(item)
