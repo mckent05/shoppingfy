@@ -17,27 +17,30 @@ class Api::V1::ItemCategoryController < ApplicationController
   end
 
   def create
-    existing_category = Category.find_by(name: new_item_category[:category_name])
-    existing_item = Item.find_by(name: new_item_category[:item_name])
-    existing_item_category = ItemCategory.find_by(item: existing_item, category: existing_category)
+    existing_category = Category.find_by(name: params[:category_name])
+    existing_item = Item.find_by(new_item_params)
     item_category = ''
-
-    if existing_item_category
-      render json: {
-        message: 'Item already exists for this category',
-        status: 409
-      }
+    if existing_item
+      existing_item_category = ItemCategory.find_by(item_id: existing_item.id, category_id: existing_category.id)
+      if existing_item_category
+          render json: {
+            message: 'Item already exists for this category',
+            status: 409
+          }
+      # else
+      #   item_category = ItemCategory.create(item: existing_item, category: existing_category)
+      end
     else
-      new_item = current_user.items.create(name: new_item_category[:item_name],
-                                           description: new_item_category[:description], image: new_item_category[:image], quantity: new_item_category[:quantity], measurement_unit: new_item_category[:measurement_unit])
+      new_item = current_user.items.create(new_item_params)
       if existing_category
         item_category = existing_category.item_categories.new(item: new_item)
       else
-        new_category = current_user.categories.create(name: new_item_category[:category_name])
+        new_category = current_user.categories.create(name: params[:category_name])
         item_category = new_category.item_categories.new(item: new_item)
       end
       display_message(item_category)
     end
+    
   end
 
   def display_message(item)
@@ -58,7 +61,7 @@ class Api::V1::ItemCategoryController < ApplicationController
 
   private
 
-  def new_item_category
-    params.require(:new_item).permit(:category_name, :item_name, :image, :description, :measurement_unit, :quantity)
+  def new_item_params
+    params.require(:new_item).permit(:name, :image, :description, :measurement_unit, :quantity)
   end
 end

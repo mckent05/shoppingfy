@@ -4,4 +4,15 @@ class Item < ApplicationRecord
   has_many :categories, through: :item_categories, dependent: :destroy
 
   belongs_to :user, class_name: 'User', foreign_key: 'user_id'
+
+  def get_items_count(data_object, cart_id)
+    count_item = cart_lists.where(cart_id: cart_id).count
+    item = data_object[:items]
+
+    if item.key?(name)
+      item[name] += count_item
+    else
+      item[name] = count_item
+    end
+  end
 end
