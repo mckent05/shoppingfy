@@ -47,11 +47,11 @@ class Api::V1::CartListsController < ApplicationController
 
   def group_keys(object, item)
     object.collect do |key, value|
-        if item.key?(key.name)
-            item[key.name] += value
-        else
-            item[key.name] = value
-        end
+      if item.key?(key.name)
+        item[key.name] += value
+      else
+        item[key.name] = value
+      end
     end
   end
 

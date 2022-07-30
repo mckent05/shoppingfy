@@ -1,11 +1,13 @@
 class Api::V1::ItemCategoryController < ApplicationController
   before_action :authenticate_user!
+  skip_before_action :authenticate_user!, only: %i[index show]
+
   def index
     all_categories = Category.all.includes([:item_categories])
     category_items = []
     all_categories.each do |cat|
       all_items = []
-      cat.item_categories.each do |c|
+      cat.item_categories.map do |c|
         all_items << c.item.as_json(only: %i[name id measurement_unit quantity])
       end
       category_items << { category: cat.name, items: all_items }
@@ -13,6 +15,14 @@ class Api::V1::ItemCategoryController < ApplicationController
     render json: {
       data: category_items,
       status: 200
+    }
+  end
+
+  def show
+    item_category = ItemCategory.find_by(item_id: params[:id])
+    render json: {
+      data: { cat_name: item_category.category.name,
+              item_details: item_category.item.as_json(only: %i[name id description image measurement_unit]) }
     }
   end
 
@@ -54,7 +64,7 @@ class Api::V1::ItemCategoryController < ApplicationController
         message: 'Item created succesfully',
         status: 201,
         data: [{ category: item.category.name,
-                 items: item.item.as_json(only: %i[name user_id id description measurement_unit quantity]) }]
+                 items: item.item.as_json(only: %i[name id description quantity]) }]
       }
     else
       render json: {

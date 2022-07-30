@@ -1,5 +1,6 @@
 class Api::V1::ItemsController < ApplicationController
   before_action :authenticate_user!
+  skip_before_action :authenticate_user!, only: %i[destroy]
 
   def destroy
     item = Item.find(params[:id])
@@ -14,14 +15,5 @@ class Api::V1::ItemsController < ApplicationController
         status: 400
       }
     end
-  end
-
-  def show
-    item = Item.find(params[:id])
-    render json: {
-      data: item.as_json(only: %i[name description image measurement_unit quantity
-                                  user_id]),
-      status: 200
-    }
   end
 end
