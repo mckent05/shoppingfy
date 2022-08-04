@@ -19,7 +19,7 @@ class Api::V1::CartsController < ApplicationController
       next unless filtered_list.count.positive?
 
       filtered_list.each do |list|
-        cat_items << list.item.as_json(only: %i[name quantity measurement_unit])
+        cat_items << list.item.as_json(only: %i[name measurement_unit])
       end
       data << { category: cat, items: cat_items }
     end

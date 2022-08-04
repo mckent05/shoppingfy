@@ -6,7 +6,7 @@ class Api::V1::ItemCategoryController < ApplicationController
     all_categories.each do |cat|
       all_items = []
       cat.item_categories.map do |c|
-        all_items << c.item.as_json(only: %i[name id measurement_unit quantity])
+        all_items << c.item.as_json(only: %i[name id measurement_unit])
       end
       category_items << { category: cat.name, items: all_items }
     end
@@ -62,7 +62,7 @@ class Api::V1::ItemCategoryController < ApplicationController
         message: 'Item created succesfully',
         status: 201,
         data: { category: item.category.name,
-                 items: item.item.as_json(only: %i[name id measurement_unit quantity]) }
+                 items: item.item.as_json(only: %i[name id measurement_unit]) }
       }
     else
       render json: {
