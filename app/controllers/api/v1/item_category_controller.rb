@@ -1,5 +1,4 @@
 class Api::V1::ItemCategoryController < ApplicationController
- 
   def index
     all_categories = Category.all.includes([:item_categories])
     category_items = []
@@ -25,7 +24,7 @@ class Api::V1::ItemCategoryController < ApplicationController
   end
 
   def create
-    existing_category = Category.find_by(name:params[:category_name])
+    existing_category = Category.find_by(name: params[:category_name])
     existing_item = Item.find_by(name: new_item_params[:name])
     if existing_item
       if existing_category
@@ -62,7 +61,7 @@ class Api::V1::ItemCategoryController < ApplicationController
         message: 'Item created succesfully',
         status: 201,
         data: { category: item.category.name,
-                 items: item.item.as_json(only: %i[name id measurement_unit]) }
+                items: item.item.as_json(only: %i[name id measurement_unit]) }
       }
     else
       render json: {

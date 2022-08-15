@@ -9,7 +9,6 @@ class Api::V1::CartListsController < ApplicationController
       group_category = cart.cart_lists.group(:product_category).count
       category_items_count[:items] = group_items
       category_items_count[:category] = group_category
-
     end
     render json: {
       data: category_items_count,

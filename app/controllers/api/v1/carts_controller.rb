@@ -1,6 +1,6 @@
 class Api::V1::CartsController < ApplicationController
   before_action :authenticate_user!
-  skip_before_action :authenticate_user! , only: %i[create]
+  skip_before_action :authenticate_user!, only: %i[create]
 
   def index
     cart = current_user.carts.order(:created_at).reverse_order
@@ -14,8 +14,8 @@ class Api::V1::CartsController < ApplicationController
     existing_cart = current_user.carts.find_by(active: true)
     if existing_cart
       render json: {
-        message: 'There is an active cart',
-        status: 401
+        data: existing_cart.as_json(only: %i[id name]),
+        status: 200
       }
     else
       cart = current_user.carts.create(new_cart_details)
@@ -23,7 +23,7 @@ class Api::V1::CartsController < ApplicationController
         data: cart.as_json(only: %i[id name]),
         status: 200
       }
-    end 
+    end
   end
 
   def update

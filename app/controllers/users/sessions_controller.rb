@@ -8,11 +8,11 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def sign_in_success
-    render json: { message: 'Signed in Successully.', status: 200 }
+    render json: { message: 'Signed in Successfully.', status: 200 }
   end
 
   def sign_in_failure(_resource)
-    render json: { error: 'Invalid Username or Password.', status: :unauthorized }
+    render json: { message: 'Invalid Username or Password.', status: :unauthorized }
   end
 
   def respond_to_on_destroy
@@ -24,6 +24,6 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def log_out_failure
-    render json: { error: 'Logged out failure.', status: :unauthorized }
+    render json: { message: 'Logged out failure.', status: :unauthorized }
   end
 end
