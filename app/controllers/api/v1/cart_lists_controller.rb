@@ -18,7 +18,6 @@ class Api::V1::CartListsController < ApplicationController
 
   def create
     cart = current_user.carts.find_by(active: true)
-    new_cart_list = ''
     if cart
       find_existing_item = cart.cart_lists.where(product_name: new_list_params[:product_name],
         product_category: new_list_params[:product_category])
@@ -29,13 +28,14 @@ class Api::V1::CartListsController < ApplicationController
         }
       else
         new_cart_list = cart.cart_lists.create(new_list_params)
+        save_item(new_cart_list)
       end
     else
       new_cart = current_user.carts.create!(name: '')
       new_cart_list = new_cart.cart_lists.create(new_list_params)
-      
+      save_item(new_cart_list)
     end
-    save_item(new_cart_list)
+    
   end
 
   def save_item(new_item)
