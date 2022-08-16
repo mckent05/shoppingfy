@@ -22,7 +22,7 @@ class Api::V1::CartListsController < ApplicationController
     if cart
       find_existing_item = cart.cart_lists.where(product_name: new_list_params[:product_name],
         product_category: new_list_params[:product_category])
-      if find_existing_item.count.positive
+      if find_existing_item.count.positive?
         render json: {
           message: 'Item already exists in cart',
           status: 400
