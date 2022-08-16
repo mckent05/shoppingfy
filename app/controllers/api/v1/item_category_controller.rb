@@ -60,7 +60,7 @@ class Api::V1::ItemCategoryController < ApplicationController
       render json: {
         message: 'Item created succesfully',
         status: 201,
-        data: { category: item.category.name,
+        data: { category: item.category.as_json(only: %i[id name]),
                 items: item.item.as_json(only: %i[name id measurement_unit]) }
       }
     else
@@ -74,6 +74,6 @@ class Api::V1::ItemCategoryController < ApplicationController
   private
 
   def new_item_params
-    params.require(:new_item).permit(:name, :image, :description, :measurement_unit)
+    params.require(:new_item).permit(:name, :description, :measurement_unit)
   end
 end
