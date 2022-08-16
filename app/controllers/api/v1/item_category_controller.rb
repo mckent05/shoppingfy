@@ -74,6 +74,6 @@ class Api::V1::ItemCategoryController < ApplicationController
   private
 
   def new_item_params
-    params.require(:new_item).permit(:name, :description, :measurement_unit)
+    params.require(:new_item).permit(:name, :description, :image, :measurement_unit)
   end
 end
