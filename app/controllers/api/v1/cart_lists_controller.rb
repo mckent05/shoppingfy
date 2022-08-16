@@ -66,6 +66,6 @@ class Api::V1::CartListsController < ApplicationController
   private
 
   def new_list_params
-    params.require(:new_cart_list).permit(:product_name, :product_category, :measurement_unit)
+    params.require(:new_cart_list).permit(:product_name, :product_category, :measurement_unit, :quantity)
   end
 end
