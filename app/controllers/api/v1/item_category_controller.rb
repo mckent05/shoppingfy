@@ -7,7 +7,7 @@ class Api::V1::ItemCategoryController < ApplicationController
       cat.item_categories.map do |c|
         all_items << c.item.as_json(only: %i[name id measurement_unit])
       end
-      category_items << { category: cat.name, items: all_items }
+      category_items << { category: cat.as_json(only: %i[id name]), items: all_items }
     end
     render json: {
       data: category_items,
