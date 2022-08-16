@@ -13,7 +13,7 @@ Rails.application.routes.draw do
       resources :categories, only: %i[index create]
       resources :item_category, only: %i[index update create destroy show]
       resources :carts, only: %i[index update create destroy show]
-      resources :cart_lists, only: %i[index update create show]
+      resources :cart_lists, only: %i[index update create destroy show]
       resources :users, only: %i[show]
 
 

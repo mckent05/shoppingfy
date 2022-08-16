@@ -53,6 +53,21 @@ class Api::V1::CartListsController < ApplicationController
     end
   end
 
+  def destroy
+    item = CartList.find(params[:id])
+    if item.destroy
+      render json: {
+        message: 'Item deleted',
+        status: 200
+      }
+    else
+      render json: {
+        message: 'Error Deleting Item',
+        status: 400
+      }
+    end
+  end
+
   # def group_keys(object, item)
   #   object.collect do |key, value|
   #     if item.key?(key.name)
