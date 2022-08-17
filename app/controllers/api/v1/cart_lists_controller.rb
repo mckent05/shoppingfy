@@ -41,7 +41,7 @@ class Api::V1::CartListsController < ApplicationController
   def save_item(new_item)
     if new_item.save
       render json: {
-        data: new_item.as_json(only: %i[id product_category product_name quantity unit cart_d]),
+        data: new_item.as_json(only: %i[id product_category product_name quantity unit cart_id]),
         message: 'Item added to cart',
         status: 201
       }
