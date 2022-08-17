@@ -10,6 +10,26 @@ class Api::V1::CartsController < ApplicationController
     }
   end
 
+  def show
+    my_cart = Cart.find(params[:id])
+    categories = Category.all
+    data = []
+    categories.each do |cat|
+      cat_items = []
+      filtered_list = my_cart.cart_lists.where(product_category: cat.name)
+      next unless filtered_list.count.positive?
+
+      filtered_list.each do |list|
+        cat_items << list.as_json(only: %i[product_name measurement_unit id])
+      end
+      data << { category: cat, items: cat_items }
+    end
+    render json: {
+      data: data,
+      status: 200
+    }
+  end
+
   # def create
   #   existing_cart = current_user.carts.find_by(active: true)
   #   render json: {
@@ -38,7 +58,6 @@ class Api::V1::CartsController < ApplicationController
       message: 'saved'
     }
   end
-
 end
 
 private

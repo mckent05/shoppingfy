@@ -19,12 +19,14 @@ class Api::V1::CartListsController < ApplicationController
   def create
     cart = current_user.carts.find_by(active: true)
     if cart
-      find_existing_item = cart.cart_lists.where(product_name: new_list_params[:product_name],
-        product_category: new_list_params[:product_category])
-      if find_existing_item.count.positive?
+      existing_item = cart.cart_lists.where(product_name: new_list_params[:product_name],
+                                            product_category: new_list_params[:product_category])
+      if existing_item.count.positive?
         render json: {
-          message: 'Item already exists in cart',
-          status: 400
+          data: existing_item.as_json(only: %i[id product_category product_name quantity unit]),
+          cart_id: existing_item.cart_id,
+          message: 'Item added to cart',
+          status: 201
         }
       else
         new_cart_list = cart.cart_lists.create(new_list_params)
@@ -35,14 +37,14 @@ class Api::V1::CartListsController < ApplicationController
       new_cart_list = new_cart.cart_lists.create(new_list_params)
       save_item(new_cart_list)
     end
-    
   end
 
   def save_item(new_item)
     if new_item.save
       render json: {
         data: new_item.as_json(only: %i[id product_category product_name quantity unit]),
-        cart_id: new_item.cart_id, 
+        cart_id: new_item.cart_id,
+        message: 'Item added to cart',
         status: 201
       }
     else
