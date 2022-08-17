@@ -23,8 +23,7 @@ class Api::V1::CartListsController < ApplicationController
                                             product_category: new_list_params[:product_category])
       if existing_item.count.positive?
         render json: {
-          data: existing_item.as_json(only: %i[id product_category product_name quantity unit]),
-          cart_id: existing_item.cart_id,
+          data: existing_item.as_json(only: %i[id product_category product_name quantity unit cart_id]),
           message: 'Item added to cart',
           status: 201
         }
@@ -42,8 +41,7 @@ class Api::V1::CartListsController < ApplicationController
   def save_item(new_item)
     if new_item.save
       render json: {
-        data: new_item.as_json(only: %i[id product_category product_name quantity unit]),
-        cart_id: new_item.cart_id,
+        data: new_item.as_json(only: %i[id product_category product_name quantity unit cart_d]),
         message: 'Item added to cart',
         status: 201
       }
@@ -53,6 +51,16 @@ class Api::V1::CartListsController < ApplicationController
         status: 400
       }
     end
+  end
+
+  def update
+    item = CartList.find(params[:id])
+    item.update(updated_params)
+    render json: {
+      message: 'saved',
+      status: 201,
+
+    }
   end
 
   def destroy
@@ -85,4 +93,9 @@ class Api::V1::CartListsController < ApplicationController
   def new_list_params
     params.require(:new_cart_list).permit(:product_name, :product_category, :measurement_unit, :quantity)
   end
+
+  def update_params
+    params.require(:updated_cart_list).permit(:quantity)
+  end
+
 end
