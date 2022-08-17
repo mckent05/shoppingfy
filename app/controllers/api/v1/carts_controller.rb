@@ -52,9 +52,9 @@ class Api::V1::CartsController < ApplicationController
 
   def update
     existing_cart = current_user.carts.find_by(active: true)
-    updated_cart = existing_cart.update(update_cart)
+    existing_cart.update(update_cart)
     render json: {
-      data: updated_cart.as_json(only: %i[name id]),
+      data: existing_cart.as_json(only: %i[name id]),
       message: 'saved'
     }
   end
