@@ -19,9 +19,9 @@ class Api::V1::CartListsController < ApplicationController
   def create
     cart = current_user.carts.find_by(active: true)
     if cart
-      existing_item = cart.cart_lists.where(product_name: new_list_params[:product_name],
+      existing_item = cart.cart_lists.find_by(product_name: new_list_params[:product_name],
                                             product_category: new_list_params[:product_category])
-      if existing_item.count.positive?
+      if existing_item
         render json: {
           data: existing_item.as_json(only: %i[id product_category product_name quantity unit cart_id]),
           message: 'Item added to cart',
