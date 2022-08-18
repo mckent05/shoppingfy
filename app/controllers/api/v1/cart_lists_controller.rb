@@ -55,7 +55,7 @@ class Api::V1::CartListsController < ApplicationController
 
   def update
     item = CartList.find(params[:id])
-    item.update(updated_params)
+    item.update(update_params)
     render json: {
       message: 'saved',
       status: 201,
