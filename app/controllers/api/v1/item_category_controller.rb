@@ -35,6 +35,7 @@ class Api::V1::ItemCategoryController < ApplicationController
             status: 409
           }
         else
+          existing_item = current_user.items.create(new_item_params)
           item_category = ItemCategory.create(item_id: existing_item.id, category_id: existing_category.id)
           display_message(item_category)
         end
