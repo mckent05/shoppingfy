@@ -2,14 +2,12 @@ class Api::V1::CartListsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    user_cart = current_user.carts.includes([:cart_lists])
+    cart_lists = CartList.all
     category_items_count = { category: {}, items: {} }
-    user_cart.each do |cart|
-      group_items = cart.cart_lists.group(:product_name).count
-      group_category = cart.cart_lists.group(:product_category).count
-      category_items_count[:items] = group_items
-      category_items_count[:category] = group_category
-    end
+    group_items = cart_lists.group(:product_name).count
+    group_category = cart_lists.group(:product_category).count
+    category_items_count[:items] = group_items
+    category_items_count[:category] = group_category
     render json: {
       data: category_items_count,
       status: 200
