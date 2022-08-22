@@ -5,12 +5,12 @@ class Api::V1::CartListsController < ApplicationController
     user_cart = current_user.carts.includes([:cart_lists])
     category_items_count = { category: {}, items: {} }
     user_cart.each do |cart|
-      group_items = cart.cart_lists.group(:product_name).count
-      group_category = cart.cart_lists.group(:product_category).count
+      items = cart.cart_lists.group(:product_name).count
+      category = cart.cart_lists.group(:product_category).count
       category_items_count[:items] = group_items
       category_items_count[:category] = group_category
 
-      group_keys(group_items, item)
+      group_keys(group_items, items)
       group_keys(group_category, category)
 
     end
