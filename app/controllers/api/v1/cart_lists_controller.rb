@@ -27,7 +27,7 @@ class Api::V1::CartListsController < ApplicationController
                                             product_category: new_list_params[:product_category])
       if existing_item
         render json: {
-          data: existing_item.as_json(only: %i[id product_category product_name quantity unit cart_id]),
+          data: existing_item.as_json(only: %i[id product_category product_name quantity measurement_unit cart_id]),
           message: 'Item added to cart',
           status: 201
         }
@@ -45,7 +45,7 @@ class Api::V1::CartListsController < ApplicationController
   def save_item(new_item)
     if new_item.save
       render json: {
-        data: new_item.as_json(only: %i[id product_category product_name quantity unit cart_id]),
+        data: new_item.as_json(only: %i[id product_category product_name quantity measurement_unit cart_id]),
         message: 'Item added to cart',
         status: 201
       }

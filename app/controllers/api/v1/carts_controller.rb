@@ -19,12 +19,12 @@ class Api::V1::CartsController < ApplicationController
       next unless filtered_list.count.positive?
 
       filtered_list.each do |list|
-        cat_items << list.as_json(only: %i[product_name measurement_unit id])
+        cat_items << list.as_json(only: %i[product_name quantity measurement_unit id])
       end
       data << { category: cat, items: cat_items }
     end
     render json: {
-      data: { cartName: my_cart.as_json(only: %i[name created_at]), cartDetails: data },
+      data: { cartName: my_cart.as_json(only: %i[name created_at status]), cartDetails: data },
       status: 200
     }
   end
