@@ -2,17 +2,16 @@ class Api::V1::CartListsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    user_cart = current_user.carts.includes([:cart_lists])
+    user_cart = current_user.carts.where(active: false).includes([:cart_lists])
     category_items_count = { category: {}, items: {} }
     user_cart.each do |cart|
-      group_items= cart.cart_lists.group(:product_name).count
-      group_category  = cart.cart_lists.group(:product_category).count
-      items = category_items_count[:items] 
-      category = category_items_count[:category] 
+      group_items = cart.cart_lists.group(:product_name).count
+      group_category = cart.cart_lists.group(:product_category).count
+      items = category_items_count[:items]
+      category = category_items_count[:category]
 
       group_keys(group_items, items)
       group_keys(group_category, category)
-
     end
     render json: {
       data: category_items_count,
@@ -24,7 +23,7 @@ class Api::V1::CartListsController < ApplicationController
     cart = current_user.carts.find_by(active: true)
     if cart
       existing_item = cart.cart_lists.find_by(product_name: new_list_params[:product_name],
-                                            product_category: new_list_params[:product_category])
+                                              product_category: new_list_params[:product_category])
       if existing_item
         render json: {
           data: existing_item.as_json(only: %i[id product_category product_name quantity measurement_unit cart_id]),
@@ -62,7 +61,7 @@ class Api::V1::CartListsController < ApplicationController
     item.update(update_params)
     render json: {
       message: 'saved',
-      status: 201,
+      status: 201
 
     }
   end
@@ -101,5 +100,4 @@ class Api::V1::CartListsController < ApplicationController
   def update_params
     params.require(:updated_cart_list).permit(:quantity)
   end
-
 end
