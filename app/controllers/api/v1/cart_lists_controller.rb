@@ -3,8 +3,9 @@ class Api::V1::CartListsController < ApplicationController
 
   def index
     user_cart = current_user.carts.where(active: false).includes([:cart_lists])
-    category_items_count = { category: {}, items: {} }
+    category_items_count = { category: {}, items: {}, total: 0 }
     user_cart.each do |cart|
+      category_items_count[:total] += cart.cart_lists.count
       group_items = cart.cart_lists.group(:product_name).count
       group_category = cart.cart_lists.group(:product_category).count
       items = category_items_count[:items]
