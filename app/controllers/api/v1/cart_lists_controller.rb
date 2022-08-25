@@ -8,14 +8,14 @@ class Api::V1::CartListsController < ApplicationController
       category_items_count[:total] += cart.cart_lists.count
       group_items = cart.cart_lists.group(:product_name).count
       group_category = cart.cart_lists.group(:product_category).count
-      group_created_at = cart.cart_lists.group(:created_at, format: "%b %Y").count
+      group_created_at = cart.cart_lists.group_by { |t| t.created_at.strftime("%B")}
       items = category_items_count[:items]
       category = category_items_count[:category]
       created_at = category_items_count[:created_at]
 
       group_keys(group_items, items)
       group_keys(group_category, category)
-      group_keys(group_created_at, created_at)
+      group_keys2(group_created_at, created_at)
 
     end
     render json: {
@@ -86,6 +86,16 @@ class Api::V1::CartListsController < ApplicationController
     end
   end
 
+  private
+
+  def new_list_params
+    params.require(:new_cart_list).permit(:product_name, :product_category, :measurement_unit, :quantity)
+  end
+
+  def update_params
+    params.require(:updated_cart_list).permit(:quantity)
+  end
+
   def group_keys(object, item)
     object.collect do |key, value|
       if item.key?(key)
@@ -96,13 +106,14 @@ class Api::V1::CartListsController < ApplicationController
     end
   end
 
-  private
-
-  def new_list_params
-    params.require(:new_cart_list).permit(:product_name, :product_category, :measurement_unit, :quantity)
+  def group_keys2(object, item)
+    object.collect do |key, value|
+      if item.key?(key)
+        item[key] += value.count
+      else
+        item[key] = value.count
+      end
+    end
   end
 
-  def update_params
-    params.require(:updated_cart_list).permit(:quantity)
-  end
 end
