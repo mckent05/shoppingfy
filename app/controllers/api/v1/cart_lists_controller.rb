@@ -3,16 +3,20 @@ class Api::V1::CartListsController < ApplicationController
 
   def index
     user_cart = current_user.carts.where(active: false).includes([:cart_lists])
-    category_items_count = { category: {}, items: {}, total: 0 }
+    category_items_count = { category: {}, items: {}, created_at: {}, total: 0 }
     user_cart.each do |cart|
       category_items_count[:total] += cart.cart_lists.count
       group_items = cart.cart_lists.group(:product_name).count
       group_category = cart.cart_lists.group(:product_category).count
+      group_created_at = cart.cart_lists.group(:created_at).count
       items = category_items_count[:items]
       category = category_items_count[:category]
+      created_at = category_items_count[:created_at]
 
       group_keys(group_items, items)
       group_keys(group_category, category)
+      group_keys(group_created_at, created_at)
+
     end
     render json: {
       data: category_items_count,
