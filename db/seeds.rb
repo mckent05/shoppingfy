@@ -29,6 +29,7 @@ turmeric = Item.create!(
     name: 'turmeric',
     description: 'Turmeric is a common spice that comes from the root of Curcuma longa. It contains a chemical called curcumin, which might reduce swelling. Turmeric has a warm, bitter taste and is frequently used to flavor or color curry powders, mustards, butters, and cheeses',
     image: 'https://res.cloudinary.com/duj88gras/image/upload/v1661298876/wfnjyuwkcf5ixpnqmcij.jpg',
+    measurement_unit: "",
     user_id: user.id
 )
 
@@ -36,6 +37,7 @@ paste = Item.create!(
     name: 'tomato concentrate',
     description: 'Tomato paste is a thick paste made by cooking tomatoes for several hours to reduce the water content, straining out the seeds and skins, and cooking the liquid again to reduce the base to a thick, rich concentrate',
     image: 'https://res.cloudinary.com/duj88gras/image/upload/v1661298916/l2vsczjva4mq0xy2gtia.jpg',
+    measurement_unit: "",
     user_id: user.id
 )
 
@@ -43,6 +45,7 @@ curry_thyme = Item.create!(
     name: 'curry and thyme',
     description: 'Gino Curry Powder and Thyme seasoning gives stews an inviting aroma. It also make stew tasty and delicious. They help to enhance your beef or chicken flavors',
     image: 'https://res.cloudinary.com/duj88gras/image/upload/v1661298264/sakytmxtmk1e2ohedskf.jpgjpg',
+    measurement_unit: "",
     user_id: user.id
 )
 
@@ -50,6 +53,7 @@ ginger = curry_theme = Item.create!(
     name: 'ginger',
     description: 'Ginger is a flowering plant whose rhizome, ginger root or ginger, is widely used as a spice and a folk medicine. It is a herbaceous perennial which grows annual pseudostems about one meter tall bearing narrow leaf blades',
     image: 'https://res.cloudinary.com/duj88gras/image/upload/v1661298228/vsyer6dbkbz8sowtubeo.jpg',
+    measurement_unit: "",
     user_id: user.id
 )
 
@@ -79,6 +83,7 @@ suya = Item.create!(
     name: 'suya',
     description: 'Suya is tender beef threaded on a skewer and then baked or grilled to perfection in a tantalizing spicy peanut sauce. It’s the epitome of West African street food because we never made it at home',
     image: 'https://res.cloudinary.com/duj88gras/image/upload/v1661297877/myslb8ctr5pbmqbznsff.jpg',
+    measurement_unit: "",
     user_id: user.id
 )
 
@@ -86,6 +91,7 @@ pork = Item.create!(
     name: 'pork',
     description: 'Pork is the culinary name for the meat of the domestic pig. It is the most commonly consumed meat worldwide, with evidence of pig husbandry dating back to 5000 BCE. Pork is eaten both freshly cooked and preserved; curing extends the shelf life of pork products',
     image: 'https://res.cloudinary.com/duj88gras/image/upload/v1661297843/rmu57hgbc2cgfbdl19a4.jpg',
+    measurement_unit: "",
     user_id: user.id
 )
 
@@ -99,6 +105,7 @@ nono = Item.create!(
     name: 'fura da nono',
     description: 'Fura da nono is very popular in the Northern states especially in Sokoto state where it can be taken any time of the day. Nono is the Hausa word for cow’s milk sold by the Fulani women. However many people prefer to use plain yogurt to mix with the fura and drink',
     image: 'https://res.cloudinary.com/duj88gras/image/upload/v1661299242/eoupbigwssihfj4ypmkv.jpg',
+    measurement_unit: "",
     user_id: user.id
 )
 
@@ -106,6 +113,7 @@ kunu = Item.create!(
     name: 'kunu zaki',
     description: 'Kunu zaki is a healthy drink made from millets. Millet is a gluten-free grain that is commonly consumed in porridge form, in drinks or beverage form, or grounded too powder and made into swallow. Millets are very nutritious as they contain high proteins, fibre and antioxidants all of which are necessary for healthy living.',
     image: 'https://res.cloudinary.com/duj88gras/image/upload/v1661277653/qhrewyutntjwsbea3hmn.jpg',
+    measurement_unit: "",
     user_id: user.id
 )
 
@@ -113,6 +121,7 @@ chapman = Item.create!(
     name: "fanta chapman",
     description: 'A Nigerian party is never complete without a cool and bubbly drink. Nigerian Chapman cocktail is a carnival of fruits coming together in a soda-syrup mixture with dazzling rose-red color. Quite frankly, it is the African Sangria.',
     image: 'https://res.cloudinary.com/duj88gras/image/upload/v1661275512/fvxjfi3nqwajiqif6ltl.jpg',
+    measurement_unit: "",
     user_id: user.id
 )
 
@@ -133,6 +142,7 @@ bud = Item.create!(
     name: 'budweiser',
     description: 'Budweiser is an American-style pale lager produced by Anheuser-Busch, part of AB InBev. Introduced in 1876 by Carl Conrad & Co. of St. Louis, Missouri, Budweiser has become one of the largest-selling beers in the United States',
     image: 'https://res.cloudinary.com/duj88gras/image/upload/v1661300277/ujlsfka0dmo3sppukyev.jpg',
+    measurement_unit: "",
     user_id: user.id
 )
 
