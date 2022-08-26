@@ -5,7 +5,10 @@
 #
 user = User.all.first
 
-drink = Category.first
+drink = Category.create!(
+    name: 'Beverages and Drinks',
+    user_id: user.id
+)
 
 meat = Category.create!(
     name: 'Meat and Beef',
