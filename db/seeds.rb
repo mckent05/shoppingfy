@@ -6,17 +6,17 @@
 user = User.all.first
 
 drink = Category.create!(
-    name: 'Beverages and Drinks',
+    name: 'beverages and drinks',
     user_id: user.id
 )
 
 meat = Category.create!(
-    name: 'Meat and Beef',
+    name: 'meat and beef',
     user_id: user.id
 )
 
 alcohol_beer = Category.create!(
-    name: 'Alcohol and Beer',
+    name: 'alcohol and beer',
     user_id: user.id
 )
 
