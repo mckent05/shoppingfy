@@ -12,7 +12,7 @@ class Api::V1::ItemCategoryController < ApplicationController
     render json: {
       data: category_items,
       status: 200
-    }
+    }, status: :ok
   end
 
   def show
@@ -33,7 +33,7 @@ class Api::V1::ItemCategoryController < ApplicationController
           render json: {
             message: 'Item already exists for this category',
             status: 409
-          }
+          }, status: :conflict
         else
           existing_item = current_user.items.create(new_item_params)
           item_category = ItemCategory.create(item_id: existing_item.id, category_id: existing_category.id)
@@ -63,12 +63,12 @@ class Api::V1::ItemCategoryController < ApplicationController
         status: 201,
         data: { category: item.category.as_json(only: %i[id name]),
                 items: item.item.as_json(only: %i[name id measurement_unit]) }
-      }
+      }, status: :created
     else
       render json: {
         message: 'Error Creating this item',
         status: 400
-      }
+      }, status: :bad_request
     end
   end
 

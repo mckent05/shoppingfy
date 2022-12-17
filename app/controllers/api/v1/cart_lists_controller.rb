@@ -21,7 +21,7 @@ class Api::V1::CartListsController < ApplicationController
     render json: {
       data: category_items_count,
       status: 200
-    }
+    }, status: :ok
   end
 
   def create
@@ -34,7 +34,7 @@ class Api::V1::CartListsController < ApplicationController
           data: existing_item.as_json(only: %i[id product_category product_name quantity measurement_unit cart_id]),
           message: 'Item added to cart',
           status: 201
-        }
+        }, status: :created
       else
         new_cart_list = cart.cart_lists.create(new_list_params)
         save_item(new_cart_list)
@@ -52,12 +52,12 @@ class Api::V1::CartListsController < ApplicationController
         data: new_item.as_json(only: %i[id product_category product_name quantity measurement_unit cart_id]),
         message: 'Item added to cart',
         status: 201
-      }
+      }, status: :created
     else
       render json: {
         message: 'Cart Item created unsuccesfully',
         status: 400
-      }
+      }, status: bad_request
     end
   end
 
@@ -68,7 +68,7 @@ class Api::V1::CartListsController < ApplicationController
       message: 'saved',
       status: 201
 
-    }
+    }, status: :created
   end
 
   def destroy
@@ -77,12 +77,12 @@ class Api::V1::CartListsController < ApplicationController
       render json: {
         message: 'Item deleted',
         status: 200
-      }
+      }, status: :ok
     else
       render json: {
         message: 'Error Deleting Item',
         status: 400
-      }
+      }, status: :bad_request
     end
   end
 
