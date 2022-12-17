@@ -5,7 +5,7 @@ class Api::V1::CartsController < ApplicationController
     cart = current_user.carts.where(active: false).order(:created_at).reverse_order
     render json: {
       data: cart,
-      status: 200,
+      status: 200
     }, status: :ok
   end
 

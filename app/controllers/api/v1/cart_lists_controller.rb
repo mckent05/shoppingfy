@@ -8,7 +8,7 @@ class Api::V1::CartListsController < ApplicationController
       category_items_count[:total] += cart.cart_lists.count
       group_items = cart.cart_lists.group(:product_name).count
       group_category = cart.cart_lists.group(:product_category).count
-      group_created_at = cart.cart_lists.group_by { |t| t.created_at.strftime("%B")}
+      group_created_at = cart.cart_lists.group_by { |t| t.created_at.strftime('%B') }
       items = category_items_count[:items]
       category = category_items_count[:category]
       created_at = category_items_count[:created_at]
@@ -16,7 +16,6 @@ class Api::V1::CartListsController < ApplicationController
       group_keys(group_items, items)
       group_keys(group_category, category)
       group_keys2(group_created_at, created_at)
-
     end
     render json: {
       data: category_items_count,
@@ -115,5 +114,4 @@ class Api::V1::CartListsController < ApplicationController
       end
     end
   end
-
 end
