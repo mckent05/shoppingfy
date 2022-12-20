@@ -8,12 +8,12 @@ class Api::V1::ItemsController < ApplicationController
       render json: {
         message: 'Item deleted',
         status: 200
-      }
+      }, status: :ok
     else
       render json: {
         message: 'Error Deleting Item',
         status: 400
-      }
+      }, status: :bad_request
     end
   end
 end
