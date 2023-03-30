@@ -2,7 +2,9 @@
 # exit on error
 set -o errexit
 
-bundle install
-bundle exec rails assets:precompile
-bundle exec rails assets:clean
-bundle exec rails db:migrate
+# bundle install
+# bundle exec rails assets:precompile
+# bundle exec rails assets:clean
+# bundle exec rails db:migrate
+
+web: rake db:migrate && bin/rails server -b 0.0.0.0 -p {PORT: 3000}
