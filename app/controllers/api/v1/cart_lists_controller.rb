@@ -8,7 +8,7 @@ class Api::V1::CartListsController < ApplicationController
       category_items_count[:total] += cart.cart_lists.count
       group_items = cart.cart_lists.group(:product_name).count
       group_category = cart.cart_lists.group(:product_category).count
-      group_created_at = cart.cart_lists.group_by { |t| t.created_at.strftime("%B")}
+      group_created_at = cart.cart_lists.group_by { |t| t.created_at.strftime('%B') }
       items = category_items_count[:items]
       category = category_items_count[:category]
       created_at = category_items_count[:created_at]
@@ -16,12 +16,12 @@ class Api::V1::CartListsController < ApplicationController
       group_keys(group_items, items)
       group_keys(group_category, category)
       group_keys2(group_created_at, created_at)
-
+      
     end
     render json: {
       data: category_items_count,
       status: 200
-    }
+    }, status: :ok
   end
 
   def create
@@ -34,7 +34,7 @@ class Api::V1::CartListsController < ApplicationController
           data: existing_item.as_json(only: %i[id product_category product_name quantity measurement_unit cart_id]),
           message: 'Item added to cart',
           status: 201
-        }
+        }, status: :created
       else
         new_cart_list = cart.cart_lists.create(new_list_params)
         save_item(new_cart_list)
@@ -52,12 +52,12 @@ class Api::V1::CartListsController < ApplicationController
         data: new_item.as_json(only: %i[id product_category product_name quantity measurement_unit cart_id]),
         message: 'Item added to cart',
         status: 201
-      }
+      }, status: :created
     else
       render json: {
         message: 'Cart Item created unsuccesfully',
         status: 400
-      }
+      }, status: bad_request
     end
   end
 
@@ -68,7 +68,7 @@ class Api::V1::CartListsController < ApplicationController
       message: 'saved',
       status: 201
 
-    }
+    }, status: :created
   end
 
   def destroy
@@ -77,12 +77,12 @@ class Api::V1::CartListsController < ApplicationController
       render json: {
         message: 'Item deleted',
         status: 200
-      }
+      }, status: :ok
     else
       render json: {
         message: 'Error Deleting Item',
         status: 400
-      }
+      }, status: :bad_request
     end
   end
 
@@ -117,3 +117,4 @@ class Api::V1::CartListsController < ApplicationController
   end
 
 end
+

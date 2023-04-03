@@ -8,6 +8,6 @@ class Api::V1::CategoriesController < ApplicationController
     render json: {
       data: categories,
       status: 200
-    }
+    }, status: :ok
   end
 end

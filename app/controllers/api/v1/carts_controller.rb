@@ -5,8 +5,8 @@ class Api::V1::CartsController < ApplicationController
     cart = current_user.carts.where(active: false).order(:created_at).reverse_order
     render json: {
       data: cart,
-      status: 200,
-    }
+      status: 200
+    }, status: :ok
   end
 
   def show
@@ -26,7 +26,7 @@ class Api::V1::CartsController < ApplicationController
     render json: {
       data: { cartName: my_cart.as_json(only: %i[name created_at status]), cartDetails: data },
       status: 200
-    }
+    }, status: :ok
   end
 
   def update
@@ -35,7 +35,7 @@ class Api::V1::CartsController < ApplicationController
     render json: {
       data: existing_cart.as_json(only: %i[name id]),
       message: 'saved'
-    }
+    }, status: :ok
   end
 end
 
