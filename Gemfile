@@ -55,6 +55,7 @@ gem 'msgpack', '~> 1.5', '>= 1.5.1'
 # Add authentication layer to our API
 gem 'devise'
 gem 'devise-jwt'
+gem 'warden-jwt_auth', '0.6.0'
 
 # Generate API docs
 gem 'rswag'
