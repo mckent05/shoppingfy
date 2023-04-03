@@ -1,2 +1,2 @@
-web: bundle exec rails s -b 0.0.0.0 -p {PORT: 0000} -e $RAILS_ENV
+web: bundle exec rails s -b 0.0.0.0
 release: rails db:migrate
