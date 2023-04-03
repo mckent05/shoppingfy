@@ -2,7 +2,8 @@
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 #
 # Examples:
-#
+
+User.create!(username: 'atemitope95@gmail.com', password: '12345678', email: 'atemitope95@gmail.com')
 user = User.all.first
 
 drink = Category.create!(
