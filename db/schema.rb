@@ -58,7 +58,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_12_215308) do
     t.datetime "updated_at", null: false
     t.string "name"
     t.string "description"
-    t.string "image"
+    t.string "image", default: "https://res.cloudinary.com/duj88gras/image/upload/v1660563933/default_nnor2h.png"
     t.string "measurement_unit"
     t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_items_on_user_id"
