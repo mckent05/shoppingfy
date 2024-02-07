@@ -4,7 +4,7 @@
 
 - Rails API app to serve as a back-end for `Shoppingify` Application front-end...
 
-- The API allows you to Do RESTfull actions for arenas like `list`, `create`, `show`, `delete` shopping items. Also can `view` your shopping history statistics, `show` or `delete` any of the shopping items.  
+- The API allows you to Do RESTful actions for arenas like `list`, `create`, `show`, `delete` shopping items. Also can `view` your shopping history statistics, `show` or `delete` any of the shopping items.  
 
 ## Built With
 
